@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電風扇</title>
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            text-align: center;
+        }
+        .button {
+            font-size: 14px;
+            margin: 5px;
+        }
+        .fan-image {
+            width: 200px;
+            height: auto;
+            margin-top: 20px;
+        }
+        .donate-image {
+            width: 200px;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+    <script>
+        let temperature = 25;
+        let fanSpeed = "低速";
+        let fanStatus = "正常";
+
+        function updateTemperature() {
+            const tempInput = document.getElementById("temperatureInput").value;
+            const newTemperature = parseInt(tempInput);
+            if (!isNaN(newTemperature) && newTemperature >= 0) {
+                temperature = newTemperature;
+                checkFanStatus();
+                adjustFanSpeed();
+                showStatusMessage();
+            }
+        }
+
+        function checkFanStatus() {
+            if (temperature > 100 || temperature < 0) {
+                fanStatus = "已損壞";
+            } else {
+                fanStatus = "正常";
+            }
+        }
+
+        function adjustFanSpeed() {
+            if (temperature >= 40) {
+                fanSpeed = "高速";
+            } else if (temperature >= 25) {
+                fanSpeed = "中速";
+            } else if (temperature >= 20) {
+                fanSpeed = "低速";
+            } else {
+                fanSpeed = "超低速";
+            }
+        }
+
+        function showStatusMessage() {
+            let message = "";
+            if (temperature < 0) {
+                message = "電風扇凍壞了，請使用轉帳斗內我 806元大銀行 帳號:20182740280076 以換取一台新的電風扇";
+            } else if (temperature < 20) {
+                message = "您的溫度快把電風扇凍壞了，電風扇以超低速運轉(拜託升高溫度)";
+            } else if (temperature < 40) {
+                message = "您的溫度剛剛好，電風扇很開心";
+            } else if (temperature < 70) {
+                message = "您的溫度太高了，電風扇以高速運轉";
+            } else if (temperature <= 100) {
+                message = "您的溫度太高了，電風扇會燒壞的";
+            } else {
+                message = "電風扇燒壞了，請使用轉帳斗內我 806元大銀行 帳號:20182740280076 以換取一台新的電風扇";
+            }
+            alert(`電風扇狀態：${fanStatus}\n電風扇風速：${fanSpeed}\n\n${message}`);
+        }
+
+        function showAbout() {
+            alert("你的電風扇壞了嗎?\n你的電風扇怪怪的......\n作者:邱苡宬");
+        }
+
+        function showStory() {
+            alert("敬請期待");
+        }
+
+        function showDonateOptions() {
+            const donateOptions = `
+                <div>
+                    <h3>請使用轉帳斗內我：</h3>
+                    <p>806元大銀行</p>
+                    <p>帳號: 20182740280076</p>
+                </div>
+            `;
+            const newWindow = window.open("", "斗內", "width=300,height=300");
+            newWindow.document.write(donateOptions);
+        }
+    </script>
+</head>
+<body>
+    <h1>電風扇</h1>
+    <img src="https://lh3.googleusercontent.com/fife/ALs6j_FTlUwClXUqTn0iajYrNhM8wTk29joKIK09taCZhP4M2htvji20dv1YoOWufhCJVfk0QtMCGpKI4oOaP-e51PgEzkKPjZOQQ1TYMvq9gWb4wVXvkpKCcaTtyf60KsbD3RIemH0NQ7KBdrGcaj8Gxq8m9bcMirCe0NOwsuOk4G6UEAv_tOLGsPqArrvia53u9rnGPCDqPEiHqvYeOEratE_ZyLLJyEElyUUqd5DMXq9ejCs95SvYhO6_FFTPsNwqHLHp3HPor13znQXZ8ndih6Ejxphp1XHSPlQ5khhVBzR95xORPHPGlzRklNUxXfEEljv2pChmOLyAJP5R0z-9lv9jn2bVFuQBVs2cbAYCWKsi0F0Qszi7tl8xrjuGs8oE_JSwDjvsn1FEVeODPaFLNzgZKwvrq1PzZADK0aTSqgfc6Zg-Gohpttf7mD1yF6zxijYEwzoFmkwhgVIpaSmeil0QwIh550l-Sh4-nIULZYayI1BNqEqNgtuAL3XD57320MOM5cRmP1Ff5bbXzrueighoxsSOyHaHno1XSGWepLSSsCiNajnJcrsUkDB3Kij-QhFaZxV0AZW0Mqwdp3htwqgWExImjwlV7oWdmOU0GtzGDGwn0Ze5v6ZW8ArKvIO3_Ax65oob1fFrvgDT8um18O7wrWGjp8-1JHvGKUtk0dGq1cYaLh4mTw1L1BmRMWWDv8406uMTGXu9Ua5cz-TnsVNwnnUvV_UX0A1-ORDyrtVz8g1YEKT6qoryS5eX8uboqFEXVLqTDYJH5ft_dTUxP4BQqiRhXQRsUVMd3cHD8n1fWYPtHporUiLd1ovsc-NHcTFFOqorLsfUl5Qdc-RSisgsxyFsodlHUe3-MabjUdhovoeqVpmU-bS4MTDHOw6BHed4tXne1AQvYkQB5wrtK8q0wxiJzNcaQ4pCRRl-wVlpUrq9P0pOW4OjmrN5iDDcKlWIZLp7Hl5wQ-e9lGD96RwdtSDnUX5BZ4qqVmSL-EJsqEfPWS530Q8Tj8gEV4BzW6XGJW47lmAi9QwkIbkFlI_yewY_AbTMkcQHmqeXS9iew6eYTf73YTVbafR2MfV8qkAEBkh8J--KckRbDi-FkIsec7Nvxt_n5m76HcVIcsA6wJ1QYKZGSlthP0762uCYt1NZ2xc5SqZfs7IoO7F0v8VZ18m222U7K73GV6XfouFZYwNoPYDHHJXF-YuxVl7-0YFxAJLDjEvaUTtKDNgx1hQb2kX_fgMY465aI8tWXMxy7kh5rKSCzL1_ZaF5W60WaFWWn7hpehLSQptSJ4yvFPSKUf3EneInhLkr9DNZ1yWGijvYOsCIVvmd1HBk2WRaN87SVRieqJxcIakaRAMgA4P5sKMfs4tv5BQaZxoFudsM_UrZ3oiVy0yJIpPhXWyTXJnF9Jxp6bktZxoKC2INITTlCLCFSiwGCn1rTmp9rKkNvHtogc2qL1VgmqV0DEIgcOSBXZvdFajsqKoLDWmPw_2Fv5naXNO9n9AYmoR3mod6z5rcWUtZ5gm5mL8OXmgeNUp6QAzhHsYpnRWfz-612Vd9FMgBFNNe1RaxGGBFsBP96m5usoMzWTFUupz8gv7IBifvYW_cny0ibUnsK-ZW1LIH6kwmYfztzpZ4jxK9AYtYSfip5n0-nCqE=w1920-h903" alt="Fan Image" class="fan-image">
+    <div>
+        <label for="temperatureInput" style="font-size: 14px;">輸入溫度(攝氏)：</label>
+        <input type="number" id="temperatureInput" value="25" style="font-size: 14px;">
+        <button onclick="updateTemperature()" class="button">確定</button>
+    </div>
+    <br>
+    <nav>
+        <button onclick="showDonateOptions()" class="button">斗內我</button>
+        <button onclick="showAbout()" class="button">關於</button>
+        <button onclick="showStory()" class="button">故事</button>
+        <button onclick="window.close()" class="button">離開</button>
+    </nav>
+</body>
+</html>
